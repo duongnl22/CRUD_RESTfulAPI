@@ -1,0 +1,24 @@
+<style>
+    i{
+        color: brown;
+    }
+</style>
+
+<div ng-controller="productCtrl">
+    <h2><Strong>DETAIL PRODUCT</Strong></h2>
+    <div class="card col-lg-6">
+        <div class="card-body" ng-repeat="x in listProduct" ng-if="x.id == idUrl">
+            <Strong><i>Product Name: </i> {{x.productName}}</Strong>   <br>
+            <Strong><i>Brand Name: </i> {{x.brand[0].brandName}}</Strong>   <br>
+            <Strong><i>SubCategory Name: </i>{{x.subCategory.subCategoryName}} </Strong> <br>
+            <Strong><i>Category Name: </i> {{x.subCategory.category.categoryName}}</Strong> <br>
+            <Strong><i>Color: </i>{{x.color}}</Strong> <br>
+            <Strong><i>Quantity: </i>{{x.quantity}}</Strong> <br>
+            <Strong><i>Sell Price: </i>{{x.sellPrice | currency : "$" : 0}}</Strong> <br>
+            <Strong><i>Origin Price: </i>{{x.originPrice | currency : "$" : 0}}</Strong><br>
+            <Strong><i>Description: </i> {{x.description}}</Strong> <br>
+            <Strong><i>Status: </i> {{x.status.statusName == 0 ? "Còn Hàng" : "Hết Hàng"}}</Strong> <br>
+
+        </div>
+      </div>
+</div>

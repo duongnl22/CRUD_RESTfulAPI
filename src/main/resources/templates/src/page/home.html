@@ -1,0 +1,54 @@
+<div ng-controller="productCtrl">
+    <div class="form-outline d-flex">
+        <input type="text" class="form-control" placeholder="Search" ng-model="searchProduct" />
+        <button class="btn btn-success">Search</button>
+    </div>
+    <br><br>
+
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>No <img style="cursor: pointer;" src="../image/swap.png"  ng-click="sortData('id')"></th>
+                <th>Product Name <img style="cursor: pointer;" src="../image/swap.png"
+                        ng-click="sortData('productName')"></th>
+                <th>Brand Name <img style="cursor: pointer;" src="../image/swap.png" ng-click="sortData('brand[0].brandName')">
+                </th>
+                <th>Sub Category <img style="cursor: pointer;" src="../image/swap.png"
+                        ng-click="sortData('subCategory.subCategoryName')"></th>
+                <th>Price <img style="cursor: pointer;" src="../image/swap.png" ng-click="sortData('sellPrice')"></th>
+                <th>Status <img style="cursor: pointer;" src="../image/swap.png" ng-click="sortData('status.statusName')">
+                </th>
+                <th>Function</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="listProduct in listProductWithPage | orderBy :sortColumn: reverse | filter:searchProduct">
+                <td>{{listProduct.id}} </td>
+                <td>{{listProduct.productName}}</td>
+                <td>{{listProduct.brand[0].brandName}}</td>
+                <td>{{listProduct.subCategory.subCategoryName}}</td>
+                <td>{{listProduct.sellPrice | currency:"$" :0}}</td>
+                <td>{{listProduct.status.statusName == 0 ? "Còn hàng" : "Hết hàng"}}</td>
+                <td>
+                    <a href="#user/detail/{{listProduct.id}}" class="btn btn-success"> <i
+                            class="fa-solid fa-eye"></i></a>
+                    <a href="#user/edit/{{listProduct.id}}" class="btn btn-warning"> <i class="fa-solid fa-pen"></i></a>
+                    <a href="" class="btn btn-danger" ng-click="deleteProductPage($index)"> <i
+                            class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="float: right;" class="d-flex">
+        <div><button class="btn btn-secondary" ng-click="previousPage()"><i class='fas fa-angle-double-left'
+                    style="cursor: pointer;"></i></button></div>
+        <div class="d-flex">
+            <h4 ng-model="offset">{{offset + 1}} </h4>
+            <h4>/{{total}}</h4>
+        </div>
+        <div> <button class="btn btn-secondary" ng-click="nextPage()"><i class='fas fa-angle-double-right'
+                    style="cursor: pointer;"></i></button></div>
+
+    </div>
+</div>

@@ -1,0 +1,160 @@
+<style>
+    #error {
+        color: rgb(255, 0, 0);
+    }
+</style>
+
+
+<div ng-controller="productCtrl">
+    <h2><i>UPDATE PRODUCT</i></h2>
+    <hr>
+    <div>
+        <form ng-submit="updateProduct()">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" ng-model="productEmpty.productName" required ng-maxlength="250"></td>
+                    <td><span ng-show="form.name.$touched && form.name.$error.required"><i id="error">Name Required
+                                !!</i></span>
+                        <span ng-show="form.name.$touched && form.name.$error.maxlength"> <i id="error">Name is less
+                                than
+                                250 characters!!!</i></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Color</td>
+                    <td><input type="text" ng-model="productEmpty.color" required ng-maxlength="100"></td>
+                    <td><span ng-show="form.color.$touched && form.color.$error.required"><i id="error">Color Required
+                                !!</i></span>
+                        <span ng-show="form.color.$touched && form.color.$error.maxlength"> <i id="error">Color is less
+                                than
+                                100 characters!!!</i></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Quantity</td>
+                    <td><input type="number" ng-model="productEmpty.quantity" required min="1" max="100000" ></td>
+                    <td>
+                        <span ng-show="form.quantity.$touched && form.quantity.$error.required"><i id="error">Quantity
+                                Required !!</i></span>
+                        <span ng-show="form.quantity.$touched && form.quantity.$error.min"><i id="error">Quantity
+                                greater
+                                than 0 !!</i>
+                        </span><span ng-show="form.quantity.$touched && form.quantity.$error.max"> <i
+                                id="error">Quantity
+                                less than 100000 !!</i></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sell Price</td>
+                    <td><input type="number" ng-model="productEmpty.sellPrice" required min="0" max="1000000000"></td>
+                    <td>
+                        <span ng-show="form.sellPrice.$touched && form.sellPrice.$error.required"><i id="error">Sell
+                                Price
+                                Required !!</i></span>
+                        <span ng-show="form.sellPrice.$touched && form.sellPrice.$error.min"><i id="error">Sell Price
+                                greater
+                                than 0 !!</i>
+                        </span><span ng-show="form.sellPrice.$touched && form.sellPrice.$error.max"> <i id="error">Sell
+                                Price
+                                less than 1000000000 !!</i></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Origin Price</td>
+                    <td><input type="number" ng-model="productEmpty.originPrice" required min="0" max="1000000000">
+                    </td>
+                    <td>
+                        <span ng-show="form.originPrice.$touched && form.originPrice.$error.required"><i
+                                id="error">Origin Price
+                                Required !!</i></span>
+                        <span ng-show="form.originPrice.$touched && form.originPrice.$error.min"><i id="error">Origin
+                                Price greater
+                                than 0 !!</i>
+                        </span><span ng-show="form.originPrice.$touched && form.originPrice.$error.max"> <i
+                                id="error">Origin Price
+                                less than 1000000000 !!</i></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Brand Name</td>
+                    <td>
+                        <select ng-model="productEmpty.brand[0]" ng-options="brand.brandName for brand in listBrand">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <div class="d-flex">
+                        <td>Category</td>
+                        <td>
+                            <select ng-model="idCategory "
+                                ng-options="listCategory.id as listCategory.categoryName for listCategory in listCategory"
+                                ng-change="changeCategory()">
+                            </select>
+                        </td>
+                        <td> SubCategory</td>
+                        <td>
+                            <select ng-model="productEmpty.subCategory.id "
+                                ng-options="listSubCategorybyId.id as listSubCategorybyId.subCategoryName for listSubCategorybyId in listSubCategorybyId">
+                            </select>
+                        </td>
+                    </div>
+                </tr>
+                <tr>
+                    <td>Description:</td>
+                    <td>
+                        <textarea ng-model="productEmpty.description" cols="23" rows="3"></textarea>
+                    </td>
+                    <td>
+                        <span ng-show="form.description.$touched && form.description.$error.required"><i
+                                id="error">Description Required !!!</i></span>
+                        <span ng-show="form.description.$error.maxlength"><i id="error">Description is less than 1000
+                                characters !!!</i></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>
+                        <select ng-model="productEmpty.status.id  "
+                            ng-options="listStatus.id as listStatus.statusName == 0 ? 'Còn Hàng' : 'Hết hàng' for listStatus in listStatus">
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+            <button class="btn btn-success" type="submit">Save Change</button>
+            <button class="btn btn-secondary" type="reset">Reset</button>
+
+        </form>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Product Name</th>
+                    <th>Brand Name</th>
+                    <th>Sub Category</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Function</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="listProduct in listProduct" ng-if="listProduct.id == idUrl" style="cursor: pointer;"
+                    ng-click="detailProduct($index)">
+                    <td>{{$index + 1}}</td>
+                    <td>{{listProduct.productName}}</td>
+                    <td>{{listProduct.brand[0].brandName}}</td>
+                    <td>{{listProduct.subCategory.subCategoryName}}</td>
+                    <td>{{listProduct.sellPrice | currency:"$" :0}}</td>
+                    <td>{{listProduct.status.statusName == 0 ? "Còn hàng" : "Hết hàng"}}</td>
+                    <td>
+                        <a href="" class="btn btn-success" ng-click="detailProduct($index)"> <i
+                                class="fa-solid fa-eye"></i></a>
+                        <a href="" class="btn btn-danger" ng-click="deleteProduct($index)"> <i
+                                class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
