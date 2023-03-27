@@ -14,7 +14,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -28,9 +30,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseEntity<List<ProductDTO>> getAllProduct() {
         List<Product> listProduct = productRepository.findAll();
-        TypeToken<List<ProductDTO>> typeToken = new TypeToken<>() {
-        };
-        List<ProductDTO> listProductDTO = mapper.map(listProduct, typeToken.getType());
+
+        List<ProductDTO> listProductDTO = new ArrayList<>();
+
+        mapper.map(listProduct, listProductDTO.stream().collect(Collectors.toList()));
 
         return ResponseEntity.ok(listProductDTO);
     }
@@ -74,7 +77,6 @@ public class ProductServiceImpl implements ProductService {
 
         TypeToken<Page<ProductDTO>> typeToken = new TypeToken<>() {
         };
-
         Page<ProductDTO> productDTOPage = mapper.map(productPage, typeToken.getType());
 
         return new ResponseAPI<>(productDTOPage.getSize(), productDTOPage);

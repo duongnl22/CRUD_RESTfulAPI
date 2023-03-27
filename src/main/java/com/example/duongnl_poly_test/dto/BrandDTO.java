@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -17,6 +18,6 @@ public class BrandDTO  {
 
     private String brandName;
 
-    private List<ProductDTO> product;
+    private Set<ProductDTO> product;
 
 }

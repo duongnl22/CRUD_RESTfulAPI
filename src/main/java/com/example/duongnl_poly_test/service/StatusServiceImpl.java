@@ -9,7 +9,9 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StatusServiceImpl implements StatusService {
@@ -23,10 +25,9 @@ public class StatusServiceImpl implements StatusService {
     public List<StatusDTO> getAllStatus() {
         List<Status> listStatus = statusRepository.findAll();
 
-        TypeToken<List<StatusDTO>> typeToken = new TypeToken<>() {
-        };
+        List<StatusDTO> listStatusDTO = new ArrayList<>();
 
-        List<StatusDTO> listStatusDTO = mapper.map(listStatus, typeToken.getType());
+        mapper.map(listStatus, listStatusDTO.stream().collect(Collectors.toList()));
         return listStatusDTO;
     }
 }

@@ -9,22 +9,26 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
-   private CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
-   private ModelMapper mapper;
+    private ModelMapper mapper;
+
     @Override
     public List<CategoryDTO> getAllCategory() {
         List<Category> listCategory = categoryRepository.findAll();
 
-        TypeToken<List<CategoryDTO>> typeToken = new TypeToken<>(){};
 
-        List<CategoryDTO> listCategoryDTO = mapper.map(listCategory, typeToken.getType());
+        List<CategoryDTO> listCategoryDTO = new ArrayList<>();
+
+        mapper.map(listCategory, listCategoryDTO.stream().collect(Collectors.toList()));
 
         return listCategoryDTO;
     }

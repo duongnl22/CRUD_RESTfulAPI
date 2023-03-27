@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BrandServiceImpl implements BrandService {
@@ -25,9 +27,9 @@ public class BrandServiceImpl implements BrandService {
     public List<BrandDTO> getAllBrand() {
         List<Brand> listBrand = brandRepository.findAll();
 
-        TypeToken<List<BrandDTO>> typeToken = new TypeToken<>(){};
+        List<BrandDTO> listBrandDTO = new ArrayList<>();
 
-        List<BrandDTO> listBrandDTO = mapper.map(listBrand,typeToken.getType());
+        mapper.map(listBrand, listBrandDTO.stream().collect(Collectors.toList()));
         return listBrandDTO;
     }
 }
