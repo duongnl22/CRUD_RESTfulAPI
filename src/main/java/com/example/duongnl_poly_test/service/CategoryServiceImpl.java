@@ -25,10 +25,10 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryDTO> getAllCategory() {
         List<Category> listCategory = categoryRepository.findAll();
 
+        TypeToken<List<CategoryDTO>> typeToken = new TypeToken<>() {
+        };
 
-        List<CategoryDTO> listCategoryDTO = new ArrayList<>();
-
-        mapper.map(listCategory, listCategoryDTO.stream().collect(Collectors.toList()));
+        List<CategoryDTO> listCategoryDTO = mapper.map(listCategory, typeToken.getType());
 
         return listCategoryDTO;
     }

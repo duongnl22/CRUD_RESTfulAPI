@@ -31,9 +31,9 @@ public class ProductServiceImpl implements ProductService {
     public ResponseEntity<List<ProductDTO>> getAllProduct() {
         List<Product> listProduct = productRepository.findAll();
 
-        List<ProductDTO> listProductDTO = new ArrayList<>();
-
-        mapper.map(listProduct, listProductDTO.stream().collect(Collectors.toList()));
+        TypeToken<List<ProductDTO>> typeToken = new TypeToken<>() {
+        };
+        List<ProductDTO> listProductDTO = mapper.map(listProduct, typeToken.getType());
 
         return ResponseEntity.ok(listProductDTO);
     }

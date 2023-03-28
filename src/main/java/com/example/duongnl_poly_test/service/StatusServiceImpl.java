@@ -25,9 +25,11 @@ public class StatusServiceImpl implements StatusService {
     public List<StatusDTO> getAllStatus() {
         List<Status> listStatus = statusRepository.findAll();
 
-        List<StatusDTO> listStatusDTO = new ArrayList<>();
+        TypeToken<List<StatusDTO>> typeToken = new TypeToken<>() {
+        };
 
-        mapper.map(listStatus, listStatusDTO.stream().collect(Collectors.toList()));
+        List<StatusDTO> listStatusDTO = mapper.map(listStatus, typeToken.getType());
+
         return listStatusDTO;
     }
 }

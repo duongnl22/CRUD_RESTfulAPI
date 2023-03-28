@@ -9,6 +9,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,9 +27,10 @@ public class Sub_CategoryServiceImpl implements Sub_CategoryService {
     public List<Sub_CategoryDTO> getAllSubCategoryDto() {
         List<Sub_Category> listSubCategory = subCategoryRepository.findAll();
 
-        List<Sub_CategoryDTO> listSubCategoryDTO = new ArrayList<>();
+        TypeToken<List<Sub_CategoryDTO>> typeToken = new TypeToken<>() {
+        };
 
-        mapper.map(listSubCategory, listSubCategoryDTO.stream().collect(Collectors.toList()));
+        List<Sub_CategoryDTO> listSubCategoryDTO = mapper.map(listSubCategory, typeToken.getType());
 
         return listSubCategoryDTO;
     }
@@ -37,9 +39,10 @@ public class Sub_CategoryServiceImpl implements Sub_CategoryService {
     public List<Sub_CategoryDTO> searchSubCategoryDTO(Long id) {
         List<Sub_Category> searchSubCategory = subCategoryRepository.searchSubCategory(id);
 
-        List<Sub_CategoryDTO> searchSubCategoryDTO = new ArrayList<>();
+        TypeToken<List<Sub_CategoryDTO>> typeToken = new TypeToken<>() {
+        };
 
-        mapper.map(searchSubCategory, searchSubCategoryDTO.stream().collect(Collectors.toList()));
+        List<Sub_CategoryDTO> searchSubCategoryDTO = mapper.map(searchSubCategory, typeToken.getType());
 
         return searchSubCategoryDTO;
     }

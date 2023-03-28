@@ -27,9 +27,10 @@ public class BrandServiceImpl implements BrandService {
     public List<BrandDTO> getAllBrand() {
         List<Brand> listBrand = brandRepository.findAll();
 
-        List<BrandDTO> listBrandDTO = new ArrayList<>();
+        TypeToken<List<BrandDTO>> typeToken = new TypeToken<>() {
+        };
+        List<BrandDTO> listBrandDTO = mapper.map(listBrand, typeToken.getType());
 
-        mapper.map(listBrand, listBrandDTO.stream().collect(Collectors.toList()));
         return listBrandDTO;
     }
 }
