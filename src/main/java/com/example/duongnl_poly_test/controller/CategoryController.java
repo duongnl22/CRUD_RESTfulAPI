@@ -1,7 +1,7 @@
 package com.example.duongnl_poly_test.controller;
 
 import com.example.duongnl_poly_test.dto.CategoryDTO;
-import com.example.duongnl_poly_test.service.impl.CategoryService;
+import com.example.duongnl_poly_test.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

@@ -79,7 +79,7 @@
                 <tr>
                     <td>Brand Name</td>
                     <td>
-                        <select ng-model="productEmpty.brand[0]" ng-options="brand.brandName for brand in listBrand">
+                        <select ng-model="productEmpty.brand[0]" ng-options="brand as brand.brandName for brand in listBrand track by brand.id">
                         </select>
                     </td>
                 </tr>

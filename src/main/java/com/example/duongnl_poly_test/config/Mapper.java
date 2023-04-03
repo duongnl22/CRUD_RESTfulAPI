@@ -10,7 +10,6 @@ public class Mapper {
 
     @Bean
     public ModelMapper modelMapper() {
-        // Tạo object và cấu hình
         org.modelmapper.ModelMapper modelMapper = new org.modelmapper.ModelMapper();
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STANDARD);

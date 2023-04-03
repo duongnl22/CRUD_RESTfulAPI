@@ -2,7 +2,7 @@ package com.example.duongnl_poly_test.controller;
 
 import com.example.duongnl_poly_test.dto.ProductDTO;
 import com.example.duongnl_poly_test.dto.ResponseAPI;
-import com.example.duongnl_poly_test.service.impl.ProductService;
+import com.example.duongnl_poly_test.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

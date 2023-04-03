@@ -1,11 +1,11 @@
-package com.example.duongnl_poly_test.service;
+package com.example.duongnl_poly_test.service.impl;
 
 import com.example.duongnl_poly_test.dto.ProductDTO;
 import com.example.duongnl_poly_test.dto.ResponseAPI;
 import com.example.duongnl_poly_test.entity.Product;
 import com.example.duongnl_poly_test.exception.NotFoundException;
 import com.example.duongnl_poly_test.repository.ProductRepository;
-import com.example.duongnl_poly_test.service.impl.ProductService;
+import com.example.duongnl_poly_test.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
